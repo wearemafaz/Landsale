@@ -1,0 +1,1 @@
+var json_contact_3 = {"type":"FeatureCollection","name":"contact_3","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":"1","detail":"Contact No- 0774 222 389"},"geometry":{"type":"Point","coordinates":[80.042468779613088,7.814662837657863]}}]}
