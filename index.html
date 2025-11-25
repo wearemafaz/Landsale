@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <title>Land Plot for Sale – Location & GIS Details</title>
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/leaflet.css">
     <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
@@ -26,7 +27,6 @@
             background: #f6f7fb;
         }
 
-        /* Header */
         .header {
             width: 100%;
             background: #1e3a8a;
@@ -34,20 +34,17 @@
             color: white;
             font-size: 20px;
             font-weight: 600;
-            letter-spacing: 0.5px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
             position: relative;
             z-index: 1000;
         }
 
-        /* Map container */
         #map {
             width: 100%;
             height: calc(100% - 70px);
             position: relative;
         }
 
-        /* Floating title box */
         .map-title-box {
             position: absolute;
             top: 15px;
@@ -61,7 +58,6 @@
             z-index: 999;
         }
 
-        /* Footer */
         .footer {
             width: 100%;
             background: #1e293b;
@@ -83,20 +79,16 @@
 
 <body>
 
-    <!-- HEADER -->
     <div class="header">
         Land Plot for Sale – Location & GIS Details
     </div>
 
-    <!-- MAP -->
     <div id="map"></div>
 
-    <!-- Floating map title -->
     <div class="map-title-box">
         📍 Property Location & Boundary Map
     </div>
 
-    <!-- FOOTER -->
     <div class="footer">
         For inquiries: <a href="tel:+94XXXXXXXXX">Call Now</a> | Powered by GIS Mapping
     </div>
@@ -116,12 +108,79 @@
     <script src="js/leaflet.photon.js"></script>
     <script src="js/leaflet-measure.js"></script>
 
-    <!-- Your data -->
+    <!-- Data Layers -->
     <script src="data/LOT96_2.js"></script>
     <script src="data/contact_3.js"></script>
 
-    <!-- Your original full map code continues below exactly as you supplied -->
-    <!-- (I did not modify anything except layout/UI) -->
-    <!-- PASTE YOUR ENTIRE MAP SCRIPT HERE EXACTLY AS IN ORIGINAL -->
+    <!-- MAP INITIALIZATION -->
+    <script>
+        // Create basic map
+        var map = L.map('map', {
+            zoomControl: true,
+            maxZoom: 28,
+            minZoom: 1
+        }).setView([7.8731, 80.7718], 8); // Default Sri Lanka center
+
+        // Add OpenStreetMap basemap
+        var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define a popup formatter helper
+        function formatPopup(properties) {
+            let html = "";
+            for (let key in properties) {
+                html += `<b>${key}</b>: ${properties[key]}<br>`;
+            }
+            return html;
+        }
+
+        // Add LOT96_2 layer
+        var LOT96_2_layer = L.geoJSON(json_LOT96_2, {
+            onEachFeature: function (feature, layer) {
+                if (feature.properties) {
+                    layer.bindPopup(formatPopup(feature.properties));
+                }
+            },
+            style: {
+                color: "#ff6600",
+                weight: 2
+            }
+        }).addTo(map);
+
+        // Add contact layer
+        var contact_layer = L.geoJSON(json_contact_3, {
+            onEachFeature: function (feature, layer) {
+                if (feature.properties) {
+                    layer.bindPopup(formatPopup(feature.properties));
+                }
+            },
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 6,
+                    fillColor: "#1e3a8a",
+                    color: "#ffffff",
+                    weight: 1,
+                    fillOpacity: 0.9
+                });
+            }
+        }).addTo(map);
+
+        // Adjust map to fit boundaries
+        try {
+            map.fitBounds(LOT96_2_layer.getBounds());
+        } catch (e) {
+            console.warn("Could not fit bounds: ", e);
+        }
+
+        // Add measurement tool
+        L.control.measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        }).addTo(map);
+    </script>
+
 </body>
 </html>
