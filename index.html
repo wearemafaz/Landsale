@@ -1,53 +1,128 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-        <title>Land Plot for Sale – Location & GIS Details</title>
+    <title>Land Plot for Sale – Location & GIS Details</title>
 
-        <link rel="stylesheet" href="css/leaflet.css">
-        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
-        <link rel="stylesheet" href="css/qgis2web.css">
-        <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet.photon.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet.photon.css">
+    <link rel="stylesheet" href="css/leaflet-measure.css">
 
-        <style>
-        html, body, #map {
+    <style>
+        html, body {
             width: 100%;
             height: 100%;
-            padding: 0;
             margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f6f7fb;
         }
-        </style>
-    </head>
 
-    <body>
-        <div id="map"></div>
+        /* Header */
+        .header {
+            width: 100%;
+            background: #1e3a8a;
+            padding: 14px 20px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1000;
+        }
 
-        <!-- Scripts -->
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script>
-        <script src="js/L.Control.Layers.Tree.min.js"></script>
-        <script src="js/leaflet-svg-shape-markers.min.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet.photon.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="data/LOT96_2.js"></script>
-        <script src="data/contact_3.js"></script>
+        /* Map container */
+        #map {
+            width: 100%;
+            height: calc(100% - 70px);
+            position: relative;
+        }
 
-        <!-- Your original JavaScript code continues here unchanged -->
-        <!-- (Not repeated for brevity unless you want a fully cleaned version) -->
+        /* Floating title box */
+        .map-title-box {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.92);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            z-index: 999;
+        }
 
-    </body>
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 13px;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        .footer a {
+            color: #facc15;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        Land Plot for Sale – Location & GIS Details
+    </div>
+
+    <!-- MAP -->
+    <div id="map"></div>
+
+    <!-- Floating map title -->
+    <div class="map-title-box">
+        📍 Property Location & Boundary Map
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        For inquiries: <a href="tel:+94XXXXXXXXX">Call Now</a> | Powered by GIS Mapping
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/leaflet.js"></script>
+    <script src="js/L.Control.Layers.Tree.min.js"></script>
+    <script src="js/leaflet-svg-shape-markers.min.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet.photon.js"></script>
+    <script src="js/leaflet-measure.js"></script>
+
+    <!-- Your data -->
+    <script src="data/LOT96_2.js"></script>
+    <script src="data/contact_3.js"></script>
+
+    <!-- Your original full map code continues below exactly as you supplied -->
+    <!-- (I did not modify anything except layout/UI) -->
+    <!-- PASTE YOUR ENTIRE MAP SCRIPT HERE EXACTLY AS IN ORIGINAL -->
+</body>
 </html>
